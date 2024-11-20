@@ -1,8 +1,4 @@
 #pragma once
-#include "fcntl.h"
-#include "stdio.h"
-#include <functional>
-#include <stdlib.h>
 #include <stdexcept>
 template<typename K, typename V>
 class Map {
