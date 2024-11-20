@@ -3,20 +3,15 @@
 template<typename K, typename V>
 class Map {
 #define MAX 1024
-#define hash(x) ((__hash(x) % MAX))
+#define HASH(x) ((__hash(x) % MAX))
 
     std::hash<K> __hash;
     struct Node {
         K key;
         V val;
         struct Node *next;
-
-
-        Node(K key, V val){
-            this->val = val;
-            this->key = key;
-            this->next = 0;
-        }
+        
+        Node(K key, V val) : key(key), val(val), next(0) {}
 
     }; 
     Node *table[MAX];
@@ -30,7 +25,7 @@ public:
     }
 
     void put(K key, V val){
-        unsigned long index = hash(key);
+        unsigned long index = HASH(key);
         if(!table[index]) table[index] = new Node(key, val);
         else {
             struct Node *next = table[index];
@@ -40,7 +35,7 @@ public:
     }
 
     V get(K key){
-        unsigned long index = hash(key);
+        unsigned long index = HASH(key);
         if(!table[index]) throw std::invalid_argument("hashmap: key is not in map");
         struct Node *next = table[index];
         while(next)
@@ -50,8 +45,7 @@ public:
     }
 
     bool contains(K key){
-        unsigned long index = hash(key);
-        if(!table[index]) return false;
+        unsigned long index = HASH(key);
         struct Node *next = table[index];
         while(next)
              if(next && next->key == key) return true;
@@ -60,5 +54,5 @@ public:
     }
 
 #undef MAX
-#undef hash
+#undef HASH
 };
