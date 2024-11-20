@@ -29,6 +29,10 @@ public:
         for(int i = 0; i < MAX; i++) table[i] = 0;
     }
 
+    Map(Map<K,V> &other){
+        for(int i = 0; i < MAX; i++) table[i] = other.table[i];
+    }
+
     void put(K key, V val){
         unsigned long index = hash(key);
         if(!table[index]) table[index] = new Node(key, val);
